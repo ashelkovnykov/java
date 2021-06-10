@@ -1,0 +1,22 @@
+allprojects {
+    apply plugin: 'idea'
+}
+
+subprojects {
+    repositories {
+        mavenCentral()
+    }
+
+    // Put the build dir into the rootProject
+    buildDir = "../build/$name"
+
+    idea {
+        module {
+            testSourceDirs += file('src/test/java')
+        }
+    }
+
+    // This task allows to get the dependencies from all the sub-project from the main photon-ml directory
+    // (otherwise, you have to change to each sub-project directory to get its dependencies)
+    task allDeps(type: DependencyReportTask) {}
+}
